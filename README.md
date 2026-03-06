@@ -15,7 +15,7 @@ The platform is designed with a modern, responsive user interface using **React*
 
 - **🤖 Agentix Chat Book:** An intelligent, context-aware AI chat assistant that converses directly with users about specific Fiqh volumes. It retains conversation history, understands complex queries, and cites its sources.
 - **🔍 Advanced Book Search:** Fast, semantic searching across historical texts, leveraging vector databases to fetch highly relevant results instantly.
-- ** Secure Authentication:** Robust user authentication with role-based access control. Differentiates between regular users and Administrative users (e.g., "Nabil - Admin").
+- **Secure Authentication:** Robust user authentication with role-based access control. Differentiates between regular users and Administrative users (e.g., "Nabil - Admin").
 - **👥 Admin Dashboard:** Dedicated interfaces for managing users, monitoring system settings, and overseeing platform usage.
 - **📱 Responsive & Accessible UI:** A mobile-first, beautifully themed interface featuring custom Arabic typography, fluid animations, and intuitive navigation.
 
