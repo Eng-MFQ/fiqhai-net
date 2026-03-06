@@ -1,4 +1,4 @@
-# موسوعة الفقه الإسلامي (Islamic Fiqh Encyclopedia) - Agentix
+#Project موسوعة الفقه الإسلامي (Islamic Fiqh Encyclopedia) - Agentix
 
 > **Professional Handover Documentation**  
 > An advanced, AI-powered platform designed to provide intelligent search, conversational agents, and a comprehensive digital encyclopedia for Islamic Fiqh (Jurisprudence).
@@ -7,7 +7,7 @@
 
 ## 📖 About The Project
 
-**موسوعة الفقه الإسلامي** (Islamic Fiqh Encyclopedia) is a cutting-edge web application tailored to assist users in researching, exploring, and engaging with deep Islamic texts. Powered by **Agentix AI**, the application brings state-of-the-art semantic search and intelligent chatting capabilities directly to historical, complex Fiqh books.
+The Project **موسوعة الفقه الإسلامي** (Islamic Fiqh Encyclopedia) is a cutting-edge web application tailored to assist users in researching, exploring, and engaging with deep Islamic texts. Powered by **Agentix AI**, the application brings state-of-the-art semantic search and intelligent chatting capabilities directly to historical, complex Fiqh books.
 
 The platform is designed with a modern, responsive user interface using **React** and **Material-UI (MUI)**, offering an elegant experience across all devices.
 
