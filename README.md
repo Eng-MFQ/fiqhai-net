@@ -1,4 +1,4 @@
-#Project موسوعة الفقه الإسلامي (Islamic Fiqh Encyclopedia) - Agentix
+# Project: موسوعة الفقه الإسلامي (Islamic Fiqh Encyclopedia) - Agentix
 
 > **Professional Handover Documentation**  
 > An advanced, AI-powered platform designed to provide intelligent search, conversational agents, and a comprehensive digital encyclopedia for Islamic Fiqh (Jurisprudence).
