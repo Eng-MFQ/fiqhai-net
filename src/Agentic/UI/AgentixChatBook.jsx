@@ -28,7 +28,6 @@ import ReactMarkdown from "react-markdown";
 import { styled } from "@mui/system";
 import AgentixSearchHelper from "./AgentixSearchHelper";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import AthkarHelper from "./AthkarHelper";
 import { Close } from "@mui/icons-material";
 import { apiUrl } from "../../api";
 
@@ -232,15 +231,6 @@ export default function AgentixChatBook() {
   const [isInitializing, setIsInitializing] = useState(true);
   const [initError, setInitError] = useState(false);
 
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
@@ -654,32 +644,7 @@ export default function AgentixChatBook() {
               />
             </Paper>
 
-            {/* Dialog to display the AthkarHelper component */}
-            <Dialog
-              open={openDialog}
-              onClose={handleCloseDialog}
-              maxWidth="sm"
-              fullWidth
-            >
-              <DialogTitle sx={{ m: 0, p: 2 }}>
-                مساعد الأذكار
-                <IconButton
-                  aria-label="close"
-                  onClick={handleCloseDialog}
-                  sx={{
-                    position: "absolute",
-                    right: 8,
-                    top: 8,
-                    color: (theme) => theme.palette.grey[500],
-                  }}
-                >
-                  <Icon sx={{ color: "black" }}>close</Icon>
-                </IconButton>
-              </DialogTitle>
-              <DialogContent dividers>
-                <AthkarHelper />
-              </DialogContent>
-            </Dialog>
+
           </Box>
         </Main>
 
