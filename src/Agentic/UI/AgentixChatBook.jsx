@@ -20,6 +20,8 @@ import {
   DialogTitle,
   DialogContent,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ReactMarkdown from "react-markdown";
@@ -79,6 +81,10 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       }),
       marginRight: 0, // Shift left when drawer opens
     }),
+    [theme.breakpoints.down("md")]: {
+      marginRight: 0,
+      padding: theme.spacing(1),
+    },
   })
 );
 
@@ -219,6 +225,8 @@ export default function AgentixChatBook() {
   const [bookInitData, setBookInitData] = useState(null);
   const [isDrawerOpen, setDrawerOpen] = useState(false); // State for drawer
   const scrollRef = useRef(null);
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
 
   // New state variables for the initial API call
   const [isInitializing, setIsInitializing] = useState(true);
@@ -464,7 +472,7 @@ export default function AgentixChatBook() {
       >
         {/* Main Chat Interface */}
         <Main
-          open={isDrawerOpen}
+          open={!isMobile && isDrawerOpen}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -483,20 +491,22 @@ export default function AgentixChatBook() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 minHeight: 64,
+                px: { xs: 1, sm: 2 },
+                gap: 1,
               }}
             >
               {/* Far right: Search button */}
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ display: "flex", alignItems: "center", zIndex: 1 }}>
                 <Button
                   variant="text"
                   color="primary"
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{ display: "flex", alignItems: "center", minWidth: 0, p: { xs: 0.5, sm: 1 } }}
                   onClick={() => {
                     navigate(`/agentixIslam/BookSearch/${bookId}`);
                   }}
-                  startIcon={<Icon sx={{ color: "primary.main" }}>search</Icon>}
+                  startIcon={<Icon sx={{ color: "primary.main", mr: { xs: 0, sm: 1 } }}>search</Icon>}
                 >
-                  <Typography variant="body1">البحث السريع</Typography>
+                  <Typography variant="body1" sx={{ display: { xs: "none", sm: "block" } }}>البحث السريع</Typography>
                 </Button>
               </Box>
               {/* Center: Title */}
@@ -512,12 +522,21 @@ export default function AgentixChatBook() {
                   pointerEvents: "none",
                 }}
               >
-                <Typography variant="h6" sx={{ pointerEvents: "auto" }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    pointerEvents: "auto",
+                    fontSize: { xs: "0.9rem", sm: "1.25rem" },
+                    textAlign: "center",
+                    px: { xs: 6, sm: 0 },
+                    lineHeight: 1.2,
+                  }}
+                >
                   البحث في {bookInitData.book_name}
                 </Typography>
               </Box>
               {/* Far left: Search helper icon */}
-              <Box sx={{ display: "flex", alignItems: "center", ml: "auto" }}>
+              <Box sx={{ display: "flex", alignItems: "center", ml: "auto", zIndex: 1 }}>
                 {data && (
                   <Tooltip title="إظهار مساعد البحث">
                     <IconButton
@@ -577,12 +596,12 @@ export default function AgentixChatBook() {
               component="form"
               onSubmit={handleFormSubmit}
               sx={{
-                m: 2,
-                p: 0.5,
+                m: { xs: 1, sm: 2 },
+                p: { xs: 0.25, sm: 0.5 },
                 display: "flex",
                 alignItems: "center",
                 borderRadius: 4,
-                minWidth: 600,
+                width: "100%",
                 maxWidth: 1000,
               }}
             >
@@ -611,7 +630,7 @@ export default function AgentixChatBook() {
                 multiline
                 maxRows={5}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
+                  if (e.key === "Enter" && !e.shiftKey && !isMobile) {
                     e.preventDefault();
                     handleFormSubmit(e);
                   }
@@ -667,16 +686,17 @@ export default function AgentixChatBook() {
         {/* Search Helper Drawer */}
         <Drawer
           sx={{
-            width: drawerWidth,
+            width: isMobile ? "100%" : drawerWidth,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: drawerWidth,
+              width: isMobile ? "100%" : drawerWidth,
               boxSizing: "border-box",
             },
           }}
-          variant="persistent"
+          variant={isMobile ? "temporary" : "persistent"}
           anchor="right"
           open={isDrawerOpen}
+          onClose={() => setDrawerOpen(false)}
         >
           <AgentixSearchHelper
             searchData={data}

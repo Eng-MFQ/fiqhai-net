@@ -26,6 +26,8 @@ import {
   Fade,
   Collapse,
   Stack,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   PersonAdd as PersonAddIcon,
@@ -48,6 +50,9 @@ export default function UserManagement({ open, onClose }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   // Form state
   const [formData, setFormData] = useState({
@@ -199,6 +204,7 @@ export default function UserManagement({ open, onClose }) {
         onClose={handleClose}
         maxWidth="lg"
         fullWidth
+        fullScreen={isMobile}
         PaperProps={{
           sx: {
             borderRadius: 3,
@@ -241,12 +247,14 @@ export default function UserManagement({ open, onClose }) {
           <Box
             sx={{
               display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
               justifyContent: "space-between",
-              alignItems: "center",
+              alignItems: { xs: "stretch", sm: "center" },
+              gap: 2,
               mb: 3,
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1, justifyContent: { xs: "center", sm: "flex-start" } }}>
               <Chip
                 label={`${users.length} Total Users`}
                 color="primary"
@@ -254,7 +262,7 @@ export default function UserManagement({ open, onClose }) {
                 icon={<PeopleIcon />}
               />
             </Box>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} justifyContent={{ xs: "space-between", sm: "flex-end" }}>
               <Button
                 variant="outlined"
                 startIcon={<RefreshIcon />}
@@ -429,10 +437,10 @@ export default function UserManagement({ open, onClose }) {
                         "linear-gradient(to right, #f8f9fa 0%, #e9ecef 100%)",
                     }}
                   >
-                    <TableCell sx={{ fontWeight: "bold" }}>User</TableCell>
-                    <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                    <TableCell sx={{ fontWeight: "bold" }}>User ID</TableCell>
-                    <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                    <TableCell sx={{ fontWeight: "bold", whiteSpace: "nowrap" }}>User</TableCell>
+                    <TableCell sx={{ fontWeight: "bold", whiteSpace: "nowrap" }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: "bold", whiteSpace: "nowrap" }}>User ID</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
                       Actions
                     </TableCell>
                   </TableRow>
@@ -448,7 +456,7 @@ export default function UserManagement({ open, onClose }) {
                           },
                         }}
                       >
-                        <TableCell>
+                        <TableCell sx={{ whiteSpace: "nowrap" }}>
                           <Box
                             sx={{
                               display: "flex",
@@ -470,12 +478,12 @@ export default function UserManagement({ open, onClose }) {
                             </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ whiteSpace: "nowrap" }}>
                           <Typography variant="body2" color="text.secondary">
                             {user.email}
                           </Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ whiteSpace: "nowrap" }}>
                           <Chip
                             label={user.id}
                             size="small"
@@ -486,7 +494,7 @@ export default function UserManagement({ open, onClose }) {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" sx={{ whiteSpace: "nowrap" }}>
                           <Tooltip title="Delete User" arrow>
                             <IconButton
                               color="error"

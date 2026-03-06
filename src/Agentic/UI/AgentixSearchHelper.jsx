@@ -136,7 +136,7 @@ const AgentixSearchHelper = ({
         <IconButton onClick={closeDrawer}>
           <Icon sx={{ color: "black" }}>chevron_right</Icon>
         </IconButton>
-        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "right" }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "right", fontSize: { xs: "1.1rem", sm: "1.25rem" } }}>
           مساعد البحث
         </Typography>
       </Toolbar>
@@ -167,10 +167,10 @@ const AgentixSearchHelper = ({
                 alignItems="flex-start"
                 padding={2}
               >
-                <Typography fontWeight="bold">
+                <Typography fontWeight="bold" sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}>
                   تخصيص نطاق البحث في المجلد {tree_search[0].book_part_number}
                 </Typography>
-                <Typography variant="caption">
+                <Typography variant="caption" sx={{ fontSize: { xs: "0.75rem", sm: "0.8rem" } }}>
                   {" "}
                   للبحث في هذه الجزئية من الكتاب، اضغط على الزر واكتب سؤالاً
                   أكثر دقة للحصول على المعلومات المطلوبة.
@@ -209,8 +209,8 @@ const AgentixSearchHelper = ({
                           bgcolor: "#4069f2ff",
                           "&:hover": { bgcolor: "#0056b3" },
                           borderRadius: 2,
-
                           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                          width: { xs: "100%", sm: "auto" }
                         }}
                       >
                         إبحث في : &quot;{item.title}&quot;
@@ -297,46 +297,45 @@ const AgentixSearchHelper = ({
                         : ""}
                       )
                     </Typography>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleApiCall(topic, index)}
-                      disabled={loading[index]}
-                      sx={{
-                        mt: 2,
-                        flexShrink: 0,
-                        ml: 2,
-
-                        "&:hover": { bgcolor: "#e7f3ff" },
-                        borderRadius: 2,
-                      }}
-                    >
-                      {loading[index] ? (
-                        <CircularProgress size={24} />
-                      ) : (
-                        "ما هذا القِسم؟"
-                      )}
-                    </Button>
-
-                    <Button
-                      variant="text"
-                      href={`${bookInitData.books_url[topic.book_part_number]}#page=${topic.page_number + bookInitData.toc_offsets[topic.book_part_number]}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      disabled={loading[index]}
-                      sx={{
-                        mt: 2,
-                        flexShrink: 0,
-                        ml: 2,
-                        "&:hover": { bgcolor: "#e7f3ff" },
-                        borderRadius: 2,
-                      }}
-                    >
-                      {loading[index] ? (
-                        <CircularProgress size={24} />
-                      ) : (
-                        " إذهب إلى الصفحة"
-                      )}
-                    </Button>
+                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 1, sm: 2 }, mt: 2 }}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleApiCall(topic, index)}
+                        disabled={loading[index]}
+                        sx={{
+                          flexShrink: 0,
+                          "&:hover": { bgcolor: "#e7f3ff" },
+                          borderRadius: 2,
+                          width: { xs: "100%", sm: "auto" }
+                        }}
+                      >
+                        {loading[index] ? (
+                          <CircularProgress size={24} />
+                        ) : (
+                          "ما هذا القِسم؟"
+                        )}
+                      </Button>
+  
+                      <Button
+                        variant="text"
+                        href={`${bookInitData.books_url[topic.book_part_number]}#page=${topic.page_number + bookInitData.toc_offsets[topic.book_part_number]}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        disabled={loading[index]}
+                        sx={{
+                          flexShrink: 0,
+                          "&:hover": { bgcolor: "#e7f3ff" },
+                          borderRadius: 2,
+                          width: { xs: "100%", sm: "auto" }
+                        }}
+                      >
+                        {loading[index] ? (
+                          <CircularProgress size={24} />
+                        ) : (
+                          " إذهب إلى الصفحة"
+                        )}
+                      </Button>
+                    </Box>
                   </Paper>
                 ))}
               </Stack>

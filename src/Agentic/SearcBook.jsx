@@ -15,6 +15,8 @@ import {
   List,
   ListItem,
   Icon,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { Search, LibraryBooks } from "@mui/icons-material";
 import { CacheProvider } from "@emotion/react";
@@ -32,6 +34,8 @@ const cacheRtl = createCache({
 });
 
 export default function BookSearch() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [limit, setLimit] = useState(10); // Changed from numResults to limit
@@ -236,11 +240,19 @@ export default function BookSearch() {
                 {/* Search Query TextField */}
                 <TextField
                   fullWidth
+                  multiline
+                  maxRows={5}
                   label="أدخل عبارة البحث"
                   variant="outlined"
                   helperText="بإمكانك البحث عن كلمة أو جملة بأي لغة تريد"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isMobile) {
+                      e.preventDefault();
+                      fetchData();
+                    }
+                  }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment sx={{ m: 1 }} position="left">

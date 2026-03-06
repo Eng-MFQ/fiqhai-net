@@ -23,6 +23,8 @@ import {
   IconButton,
   InputAdornment,
   Tooltip,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   Settings as SettingsIcon,
@@ -46,6 +48,9 @@ export default function SettingsPanel({ open, onClose }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
   const [expandedPrompt, setExpandedPrompt] = useState(false);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   // Fetch settings when dialog opens
   useEffect(() => {
@@ -119,6 +124,7 @@ export default function SettingsPanel({ open, onClose }) {
         onClose={onClose}
         maxWidth="md"
         fullWidth
+        fullScreen={isMobile}
         PaperProps={{
           sx: {
             borderRadius: 3,
@@ -349,7 +355,7 @@ export default function SettingsPanel({ open, onClose }) {
 
               {/* Numeric Settings */}
               <Box
-                sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}
+                sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}
               >
                 <Box>
                   <Typography
@@ -483,15 +489,21 @@ export default function SettingsPanel({ open, onClose }) {
 
         <DialogActions
           sx={{
-            px: 3,
-            pb: 3,
+            px: { xs: 2, sm: 3 },
+            pb: { xs: 2, sm: 3 },
             gap: 1,
+            flexDirection: { xs: "column", sm: "row" },
             background: "linear-gradient(to top, #f8f9fa 0%, white 100%)",
+            "& > :not(style) ~ :not(style)": {
+              ml: { xs: 0, sm: 1 },
+              mt: { xs: 1, sm: 0 }
+            }
           }}
         >
           <Button
             onClick={onClose}
             variant="outlined"
+            fullWidth={isMobile}
             sx={{
               borderRadius: 2,
               textTransform: "none",
@@ -505,6 +517,7 @@ export default function SettingsPanel({ open, onClose }) {
             variant="outlined"
             startIcon={<RefreshIcon />}
             disabled={loading}
+            fullWidth={isMobile}
             sx={{
               borderRadius: 2,
               textTransform: "none",
@@ -516,6 +529,7 @@ export default function SettingsPanel({ open, onClose }) {
           <Button
             onClick={handleSave}
             variant="contained"
+            fullWidth={isMobile}
             startIcon={
               saving ? (
                 <CircularProgress size={20} color="inherit" />
